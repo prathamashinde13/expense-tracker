@@ -1,5 +1,6 @@
 package com.prathama.expensetracker.service;
 
+import com.prathama.expensetracker.config.CustomerUserDetails;
 import com.prathama.expensetracker.model.User;
 import com.prathama.expensetracker.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,11 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = repo.findByUsername(username);
         if (user == null) throw new UsernameNotFoundException("User not found");
-        return new org.springframework.security.core.userdetails.User(
-                user.getUsername(), user.getPassword(), List.of(new SimpleGrantedAuthority("ROLE_USER")));
+        return new CustomerUserDetails(
+                user.getId(),
+                user.getUsername(),
+                user.getPassword(),
+                List.of(new SimpleGrantedAuthority("ROLE_USER"))
+        );
     }
 }

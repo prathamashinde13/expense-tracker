@@ -4,16 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class ExpenseDTO {
+@NoArgsConstructor
+public class ExpenseViewDTO {
     private Long id;
     private String title;
-    private Double amount;
     private String category;
-    private LocalDate date;
+    private Double amount;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
     private String comments;
 }
