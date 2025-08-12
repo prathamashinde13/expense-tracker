@@ -40,6 +40,7 @@ public class AuthController {
     public String login(@RequestBody User user) {
         authManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
-        return jwtUtil.generateToken(user.getUsername());
+        User dbUser = userRepo.findByUsername(user.getUsername());
+        return jwtUtil.generateToken(user.getUsername(), dbUser.getId());
     }
 }
